@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\ElementInteractions",
+    "\\ElementInteractions\\obj",
+    "\\ElementInteractions\\Properties"
   ],
+  "SelectedNode": "\\ElementInteractions",
   "PreviewInSolutionExplorer": false
 }
