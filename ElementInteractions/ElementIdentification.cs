@@ -25,6 +25,7 @@ namespace ElementInteractions
         {
             var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             driver = new ChromeDriver(outPutDirectory);
+            
         }
 
 
