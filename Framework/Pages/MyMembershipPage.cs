@@ -8,7 +8,13 @@ namespace Framework.Pages
 
         public bool IsAt()
         {
-            By element = By.XPath("//h1[contains(text(),'My Membership')]");
+            //By element = By.XPath("//h1[contains(text(),'My Membership')]");
+            By element = By.ClassName("main_title");
+            var memberShipPageTitle = Browser.FindElement(By.ClassName("main_title"));
+            if (memberShipPageTitle.Text != "My Membership")
+            {
+                return false;
+            }
             return Browser.WaitUntilElementIsDisplayed(element, PAGE_LOAD_TIMEOUT);
         }
 

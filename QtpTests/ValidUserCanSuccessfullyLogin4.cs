@@ -10,7 +10,7 @@ namespace QtpTests
         public void ValidUserCanSuccessfullyLogin()
         {
             Pages.Login.Goto();
-            Pages.Login.Login("seleniumTestUser", "Test12345!!$");
+            Pages.Login.Login();
             Assert.IsTrue(Pages.MyMembership.IsAt(), "A valid user was not able to successfully login.");
         }
     }

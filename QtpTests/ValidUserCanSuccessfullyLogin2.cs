@@ -10,7 +10,7 @@ namespace QtpTests
     [TestClass]
     public class ValidUserCanSuccessfullyLogin2
     {
-        static  IWebDriver driver = GetChromeDriver();
+        static IWebDriver driver = GetChromeDriver();
 
         [TestMethod]
         public void RunTest()
@@ -19,13 +19,13 @@ namespace QtpTests
             GoTo();
 
             //find the field for ther user name
-            SendKeys("user_login", "seleniumTestUser");
+            SendKeys("user_login", "gibbonz");
 
             //find the field for the password
-            SendKeys("user_pass", "Test12345!!$");
+            SendKeys("user_pass", "SeleniumUser5");
             ClickButton("wp-submit");
 
-            var loggedInHeader = driver.FindElement(By.XPath("//h1[text()='My Membership']"));
+            var loggedInHeader = driver.FindElement(By.ClassName("main_title"));
             Assert.IsTrue(loggedInHeader.Displayed, "The user was not able to successfully login.");
         }
 
@@ -49,6 +49,13 @@ namespace QtpTests
         {
             var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             return new ChromeDriver(outPutDirectory);
+        }
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            driver.Close();
+            driver.Quit();
         }
     }
 }

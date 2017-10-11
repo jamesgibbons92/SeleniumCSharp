@@ -11,7 +11,7 @@ namespace QtpTests
         public void RunTest()
         {
             Pages.Login.Goto();
-            Pages.Login.Login("seleniumTestUser", "SeleniumRocksMySocks!!");
+            Pages.Login.Login("seleniumTestUserGibbonz", "SeleniumRocksMySocks!!");
             Assert.IsFalse(Pages.MyMembership.IsAt());
         }
     }

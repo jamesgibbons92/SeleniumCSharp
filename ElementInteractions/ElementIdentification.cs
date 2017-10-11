@@ -27,16 +27,17 @@ namespace ElementInteractions
             driver = new ChromeDriver(outPutDirectory);
         }
 
+
         [TestMethod]
         public void ElementIdentificationTest()
         {
             driver.Navigate().GoToUrl("http://www.qtptutorial.net/automation-practice");
 
             ////Find an element using an id
-            //driver.FindElement(By.Id("idExample"));
-            //var idElement = driver.FindElement(By.Id("idExample"));
-            //idElement.Click();
-            //driver.Navigate().Back();
+            driver.FindElement(By.Id("idExample"));
+            var idElement = driver.FindElement(By.Id("idExample"));
+            idElement.Click();
+            driver.Navigate().Back();
 
             ////Find an element using a ClassName
             //element = driver.FindElement(By.ClassName("buttonClassExample"));
@@ -82,43 +83,43 @@ namespace ElementInteractions
             //By byXpath = By.XPath("//input[@type='radio']");
             //IList<IWebElement> elements = driver.FindElements(byXpath);
 
-            ////////Working with HTML tables
-            ////////How can you get the whole html table into an object?
-            //locator = By.Id("htmlTableId");
-            //var table = driver.FindElement(locator);
+            //////Working with HTML tables
+            //////How can you get the whole html table into an object?
+            locator = By.Id("htmlTableId");
+            var table = driver.FindElement(locator);
 
             //////how can you get a collection of all the rows in the table?
-            //IList<IWebElement> collectionOfRows = table.FindElements(By.XPath("//*[@id='htmlTableId']/tbody/tr"));
+            IList<IWebElement> collectionOfRows = table.FindElements(By.XPath("//*[@id='htmlTableId']/tbody/tr"));
 
 
-            //////Using Selenium: What is the Salary of an SDET?
-            //var columnIndex = -1;
-            //var columnCounter = 1;
-            //const string DESIRED_COLUMN_HEADER = "Salary";
-            //const string DESIRED_VALUE = "Software Development Engineer in Test";
+            ////Using Selenium: What is the Salary of an SDET?
+            var columnIndex = -1;
+            var columnCounter = 1;
+            const string DESIRED_COLUMN_HEADER = "Salary";
+            const string DESIRED_VALUE = "Software Development Engineer in Test";
 
-            //for (int tr = 0; tr <= collectionOfRows.Count; tr++)    //for every single row in the table
-            //{
-            //    var row = collectionOfRows[tr];
+            for (int tr = 0; tr < collectionOfRows.Count; tr++)    //for every single row in the table
+            {
+                var row = collectionOfRows[tr];
 
-            //    IList<IWebElement> allCellsInRow = row.FindElements(By.XPath("./*"));
-            //    foreach (var cell in allCellsInRow)
-            //    {
-            //        if (cell.Text == DESIRED_COLUMN_HEADER)
-            //        {
-            //            columnIndex = columnCounter;
-            //        }
+                IList<IWebElement> allCellsInRow = row.FindElements(By.XPath("./*"));
+                foreach (var cell in allCellsInRow)
+                {
+                    if (cell.Text == DESIRED_COLUMN_HEADER)
+                    {
+                        columnIndex = columnCounter;
+                    }
 
-            //        if (cell.Text == DESIRED_VALUE)
-            //        {
-            //            //.//*[@id='htmlTableId']/tbody/tr[2]/td[3]
-            //            string salaryLocator = string.Format(".//*[@id='htmlTableId']/tbody/tr[{0}]/td[{1}]", tr + 1, columnIndex);
-            //            var salary = driver.FindElement(By.XPath(salaryLocator));
-            //            Console.WriteLine("The {0} of {1} is {2}", DESIRED_COLUMN_HEADER, DESIRED_VALUE, salary.Text);
-            //        }
-            //        columnCounter++;
-            //    }
-            //}
+                    if (cell.Text == DESIRED_VALUE)
+                    {
+                        //.//*[@id='htmlTableId']/tbody/tr[2]/td[3]
+                        string salaryLocator = string.Format(".//*[@id='htmlTableId']/tbody/tr[{0}]/td[{1}]", tr + 1, columnIndex);
+                        var salary = driver.FindElement(By.XPath(salaryLocator));
+                        Console.WriteLine("The {0} of {1} is {2}", DESIRED_COLUMN_HEADER, DESIRED_VALUE, salary.Text);
+                    }
+                    columnCounter++;
+                }
+            }
 
             ////How do you get an html table that has no id?
             locator = By.TagName("table");
@@ -164,6 +165,7 @@ namespace ElementInteractions
             var nameField = driver.FindElement(By.Id("et_pb_contact_name_1"));
             nameField.Clear();
             nameField.SendKeys("test");
+          
             //clear the field
             //type into the field
 
@@ -198,8 +200,18 @@ namespace ElementInteractions
             captchaTextBox.SendKeys(captchaAnswer.ToString());
 
             driver.FindElements(By.XPath("//*[@class='et_pb_contact_submit et_pb_button']"))[1].Submit();
-            var successMessage = driver.FindElements(By.ClassName("et-pb-contact-message"))[1].FindElement(By.TagName("p"));
-            Assert.IsTrue(successMessage.Text.Equals("Success"));
+
+
+            driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
+
+            //var successMessageDiv = driver.FindElements(By.ClassName("et-pb-contact-message"))[1];
+            // the div goes stale, the DOM seems to be rewritten after pressing submit. 
+            // So let's just look straight for the p element with "Success" in it. This coupled with our implicit wait should work.
+
+            var successMessage = driver.FindElement(By.XPath("//p[text()='Success']"));
+
+            
+            Assert.IsTrue(successMessage.Text.Equals("Success"), String.Format("Success message not shown: '{0}'", successMessage.Text));
         }
 
         [TestMethod]
@@ -227,7 +239,8 @@ namespace ElementInteractions
         public void ElementInterrogationTest()
         {
             driver.Url = "http://www.ultimateqa.com/simple-html-elements-for-automation/";
-            driver.Manage().Window.Maximize();
+            //driver.Manage().Window.Maximize();
+            
             //1. find button by Id
             //2. GetAttribute("type") and assert that it equals the right value
             //3. GetCssValue("letter-spacing") and assert that it equals the correct value
@@ -252,8 +265,8 @@ namespace ElementInteractions
             Assert.AreEqual(myElement.Text, "Click Me!");
             Assert.AreEqual("button", myElement.TagName);
             Assert.AreEqual(21, myElement.Size.Height);
-            Assert.AreEqual(190, myElement.Location.X);
-            Assert.AreEqual(330, myElement.Location.Y);
+            Assert.AreEqual(123, myElement.Location.X);
+            Assert.AreEqual(363, myElement.Location.Y);
         }
 
 
@@ -266,4 +279,6 @@ namespace ElementInteractions
             driver.Quit();
         }
     }
+
+    
 }

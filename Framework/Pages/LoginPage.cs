@@ -9,9 +9,9 @@ namespace Framework.Pages
             Browser.Goto("/wp-login.php");
         }
 
-        public void Login(string userName, string password)
+        public void Login(string userName = "gibbonz", string password = "SeleniumUser5")
         {
-            Browser.Driver.FindElement(By.LinkText("log in with a password")).Click();
+            //Browser.Driver.FindElement(By.LinkText("log in with a password")).Click();
             //find the field for ther user name
             var userNameField = Browser.Driver.FindElement(By.Id("user_login"));
             userNameField.SendKeys(userName);

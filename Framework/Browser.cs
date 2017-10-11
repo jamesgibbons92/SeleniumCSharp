@@ -84,6 +84,8 @@ namespace Framework
         public static void Initialize()
         {
             _webDriver = GetDriver(Drivers.Chrome);
+            //Set implicit wait..
+            _webDriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
             Goto("");
         }
 

@@ -23,12 +23,12 @@ namespace QtpTests
         {
             //here we create a new instance of the Chrome driver
             GoTo();
-            Login("seleniumTestUser", "Test12345!!$");
-            var loggedInHeader = driver.FindElement(By.XPath("//h1[text()='My Membership']"));
+            Login();
+            var loggedInHeader = driver.FindElement(By.ClassName("main_title"));
             Assert.IsTrue(loggedInHeader.Displayed, "The user was not able to successfully login.");
         }
 
-        public void Login(string userName, string password)
+        public void Login(string userName = "gibbonz", string password = "SeleniumUser5")
         {
             //find the field for ther user name
             SendKeys("user_login", userName);
