@@ -45,13 +45,15 @@ namespace MyFramework.Pages
         }
 
         // And now we can declare our methods.
-        // They should return a new page object.
-
+        
+            // This one returns a new page object, because it navigates.
         public PortfolioPage ClickPortfolioButton()
         {
             this.PortfolioButtonElement.Click();
             return new PortfolioPage(Driver);
         }
+
+        // another one may just be a void, and do an action then assert.
 
 
 
