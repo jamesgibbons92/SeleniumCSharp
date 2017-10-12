@@ -10,15 +10,16 @@ using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
+using NUnit.Framework.Internal.Commands;
 using OpenQA.Selenium.Remote;
 
 namespace UserInteractions
 {
-    [TestFixture]
+    [TestFixture, Parallelizable]
     public class InteractionsDemo
     {
         private Actions _actions;
-        private FirefoxDriver _driver;
+        private ChromeDriver _driver;
         private WebDriverWait _wait;
 
         [Test]
@@ -34,6 +35,7 @@ namespace UserInteractions
             Assert.AreEqual("Dropped!", targetElement.Text);
             Thread.Sleep(TimeSpan.FromSeconds(10));
         }
+
 
         [Test]
         public void DragDropExample2()
@@ -56,6 +58,7 @@ namespace UserInteractions
         }
 
         [Test]
+        [Ignore("")]
         public void jQueryDragDropQuiz()
         {
             _driver.Navigate().GoToUrl("http://www.pureexample.com/jquery-ui/basic-droppable.html");
@@ -73,8 +76,9 @@ namespace UserInteractions
             Assert.AreEqual("dropped!", droppedText);
         }
 
-
+        
         [Test]
+        [Ignore("")]
         public void ResizingExample()
         {
             _driver.Navigate().GoToUrl("http://jqueryui.com/resizable/");
@@ -88,6 +92,7 @@ namespace UserInteractions
         }
 
         [Test]
+        [Ignore("")]
         public void OpenNetworkTabUsingFirefox()
         {
             _driver.Navigate().GoToUrl("http://www.google.com");
@@ -100,6 +105,7 @@ namespace UserInteractions
         //Not supported by Selenium Webdriver - http://stackoverflow.com/questions/29381233/how-to-simulate-html5-drag-and-drop-in-selenium-webdriver
         //https://github.com/seleniumhq/selenium-google-code-issue-archive/issues/6315
         [Test]
+        [Ignore("")]
         public void DragDropHtml5_Quiz()
         {
             _driver.Navigate().GoToUrl("http://the-internet.herokuapp.com/drag_and_drop");
@@ -114,6 +120,7 @@ namespace UserInteractions
         }
 
         [Test]
+        [Ignore("")]
         public void DrawQuiz()
         {
 
@@ -188,13 +195,14 @@ namespace UserInteractions
         }
 
         [SetUp]
+        
         public void Setup()
         {
             //FirefoxDriverService service = FirefoxDriverService.CreateDefaultService();
             //service.FirefoxBinaryPath = @"C:\Users\James\Source\Repos\SeleniumCSharp\packages\WebDriver.GeckoDriver.0.19.0\content\geckodriver.exe";
             //_driver = new FirefoxDriver(service);
             
-            _driver = new FirefoxDriver();
+            _driver = new ChromeDriver();
             _actions = new Actions(_driver);
             _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(15));
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);

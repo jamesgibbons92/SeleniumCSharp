@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
-
 
 namespace MyFramework.Pages
 {
     public class BasePage
     {
         //declare the iwebdriver
-        private IWebDriver driver;
+        private IWebDriver _driver;
 
 
         //constructor. 
@@ -23,40 +18,32 @@ namespace MyFramework.Pages
         // use title if there is no easily identifable element to identify the page.
         protected BasePage(IWebDriver webDriver, By knownElementOnPage, string title, string loadUrl="")
         {
-            this.driver = webDriver;
+            _driver = webDriver;
             if (loadUrl != String.Empty)
             {
-                driver.Navigate().GoToUrl(loadUrl);
+                _driver.Navigate().GoToUrl(loadUrl);
             }
             //this.FindKnownElementOnPage(knownElementOnPage);
-            Assert.IsTrue(IsAt(title), $"Looks like we are on an incorrect page to what we expected... Expected title: '{title}', got '{this.Title}'");
+            Assert.IsTrue(IsAt(title), $"Looks like we are on an incorrect page to what we expected... Expected title: '{title}', got '{Title}'");
         }
 
-        public string Title
-        {
-            get { return driver.Title; }
-        }
+        public string Title => _driver.Title;
 
         public IWebDriver Driver
         {
-            get { return this.driver; }
-            set { this.driver = value; }
+            get => _driver;
+            set => _driver = value;
         }
 
         // Use IsAt() or FindKnownElement depending on what you have to work with.
 
-        private bool IsAt(string title)
-        {
-            // check for title.
-            // using the driver object.
-            return Driver.Title.Contains(title);
-        }
+        private bool IsAt(string title) => Driver.Title.Contains(title);
 
 
         private void FindKnownElementOnPage(By keop)
         {
             // presumably this throws an exception if it can't find the element.. ?
-            this.Driver.FindElement(keop);
+            Driver.FindElement(keop);
         }
 
     }
