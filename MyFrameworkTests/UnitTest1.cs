@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyFramework.Pages;
@@ -24,9 +25,11 @@ namespace MyFrameworkTests
         [TestMethod]
         public void TestMethod1()
         {
+            //ShiresHomePage.Goto();
             ShiresHomePage = new HomePage(Driver);
             Thread.Sleep(1000);
             ShiresHomePage.ClickPortfolioButton();
+            Thread.Sleep(4000);
         }
 
         [TestCleanup]

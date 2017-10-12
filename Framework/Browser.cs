@@ -78,8 +78,9 @@ namespace Framework
             return present;
         }
 
-        public static ISearchContext Driver { get {return _webDriver;} }
-        public static string Title { get { return _webDriver.Title; } }
+        public static ISearchContext Driver => _webDriver;
+        public static string Title => _webDriver.Title;
+
 
         public static void Initialize()
         {

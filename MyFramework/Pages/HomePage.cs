@@ -11,6 +11,7 @@ namespace MyFramework.Pages
     public class HomePage : BasePage
     {
         // element selector declaration. any instance variables
+        private static readonly string Title = "Terri Shires";
         private static readonly string Uri = "http://wwww.tshires.co.uk";
 
         private static readonly By PortfolioButtonSelector = By.XPath("//h5/a[@href='http://www.tshires.co.uk/portfolio/']");
@@ -22,7 +23,7 @@ namespace MyFramework.Pages
         // the private variables declared above are then passed through into the base constructor
         // to establish the page.
 
-        public HomePage(IWebDriver driver) : base(driver, PortfolioButtonSelector, Uri)
+        public HomePage(IWebDriver driver) : base(driver, PortfolioButtonSelector, Title, Uri)
         {
         }
 
@@ -49,13 +50,18 @@ namespace MyFramework.Pages
             // This one returns a new page object, because it navigates.
         public PortfolioPage ClickPortfolioButton()
         {
-            this.PortfolioButtonElement.Click();
+            PortfolioButtonElement.Click();
+            //Cactus.Drivers.Support.GenerateXpathFromElement(PortfolioButtonElement);
             return new PortfolioPage(Driver);
+            
         }
 
         // another one may just be a void, and do an action then assert.
 
 
-
+        public void Goto()
+        {
+            Driver.Navigate().GoToUrl(Uri);
+        }
     }
 }

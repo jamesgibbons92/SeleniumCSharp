@@ -12,7 +12,7 @@ namespace MyFramework.Pages
     {
         // element selector declaration. any instance variables
 
-
+        private static readonly string _title = "Portfolio – Terri Shires";
         private static readonly By TitleSelector = By.XPath("//h3[contains(text(), 'Portfolio')]");
         // used to check page...
 
@@ -22,7 +22,7 @@ namespace MyFramework.Pages
         // the private variables declared above are then passed through into the base constructor
         // to establish the page.
 
-        public PortfolioPage(IWebDriver driver) : base(driver, TitleSelector)
+        public PortfolioPage(IWebDriver driver) : base(driver, TitleSelector, _title)
         {
         }
 
