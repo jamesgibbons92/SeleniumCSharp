@@ -197,7 +197,7 @@ namespace UserInteractions
             _driver = new FirefoxDriver();
             _actions = new Actions(_driver);
             _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(15));
-            
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
         }
 
